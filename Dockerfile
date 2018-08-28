@@ -10,5 +10,5 @@ RUN dep ensure \
 
 FROM alpine:3.8
 RUN apk --no-cache add ca-certificates
-COPY --from=0 /go/src/github.com/modware-content/app /usr/local/bin/
+COPY --from=0 /go/src/github.com/content-loader/app /usr/local/bin/
 ENTRYPOINT ["/usr/local/bin/app"]
