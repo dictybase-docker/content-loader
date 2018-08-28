@@ -1,0 +1,38 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "content-loader.fullname" . }}
+  labels:
+    app: {{ template "content-loader.name" . }}
+    chart: {{ .Chart.Name }}-{{ .Chart.Version }}
+    release: {{ .Release.Name }}
+    heritage: {{ .Release.Service }}
+spec:
+  template:
+    metadata:
+      name: {{ template "content-loader.fullname" . }}
+      labels:
+        release: {{ .Release.Name }}
+        app: {{ template "content-loader.name" . }}
+    spec:
+      containers:
+      - name: {{ template "content-loader.fullname" . }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: "{{ .Values.image.pullPolicy }}"
+        args: [
+            "--log-level", 
+            "{{ .Values.arguments.loglevel }}",
+            "import", 
+            "--akey", 
+            "{{ .Values.arguments.access }}",
+            "--skey", 
+            "{{ .Values.arguments.secret }}",
+            "--rp", 
+            "{{ .Values.arguments.path }}",
+            "--namespace",
+            "{{ .Values.arguments.namespace }}",
+            "--email",
+            "{{ .Values.arguments.email }}"
+            ]
+      restartPolicy: Never
+

@@ -1,0 +1,11 @@
+image:
+  repository: dictybase/content-loader
+  tag: 0.0.1
+  pullPolicy: IfNotPresent
+arguments:
+    loglevel: info
+    #secret:
+    #access:
+    #path:
+    #namespace:
+    #email:
